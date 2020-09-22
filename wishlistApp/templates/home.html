@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" contect="width=device, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <title>Homepage</title>
+</head>
+<body>
+    <h1>Welcome to Your HomePage</h1>
+    <div class="homepage" style="margin-bottom: 10px;">
+        <p>Welcome {{ member.name }}! You have successfully logged into your homepage!</p>
+        <div class="wishlist">
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Added By</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for item in favedItems %}
+                    <tr>
+                        <td><a href="/iteminfo/{{item.id}}">{{ item.itemname }}</a></td>
+                        <td>{{ item.addedBy.name }}</td>
+                        <td>{{ item.created_at }}</td>
+                        <td><a href="/item/unlike/{{item.id}}">Remove from my Wishlist</a></td>
+                    </tr>
+                {% endfor %}
+                {% for item in addedBy %}
+                    {% if item not in favedItems %}
+                    <tr>
+                        <td><a href="/iteminfo/{{item.id}}">{{ item.itemname }}</a></td>
+                        <td>{{ item.addedBy.name }}</td>
+                        <td>{{ item.created_at }}</td>
+                        <td><a href="/delete/{{item.id}}">Delete</a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <div class="otherlist">
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Added By</th>
+                    <th>Date Added</th>
+                    <th>Action</th>
+                </tr>
+                {% for item in listedBy %}
+                    {% if item not in favedItems %}
+                    <tr>
+                        <td><a href="/iteminfo/{{item.id}}">{{ item.itemname }}</a></td>
+                        <td>{{ item.addedBy.name }}</td>
+                        <td>{{ item.created_at }}</td>
+                        <td><a href="/item/like/{{item.id}}" style="padding: 3px; border: .5px solid black; border-radius: 3px; color: black; background-color: lightgray;">Add To Wishlist</a></td>
+                    </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </div>
+        <a href="/"></a>
+        <br>
+        <br>
+        <a href="/newitem" style="padding: 3px; border: .5px solid black; border-radius: 3px; color: black; background-color: lightgray;">Add item</a>
+    </div>
+    <a href="/logout" style="margin-top: 15px; padding: 3px; border: .5px solid black; border-radius: 3px; color: black; background-color: lightgray;">LogOut</a>
+</body>
+</html>

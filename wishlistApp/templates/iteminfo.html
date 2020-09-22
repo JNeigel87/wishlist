@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" contect="width=device, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <title>Item Info Page</title>
+</head>
+<body>
+    <h1>{{ item.itemname }}</h1><a href="/homepage">Return Home</a><a href="/logout">Logout</a>
+
+    <div class="info">
+        <p>Item created/added by: {{ item.addedby }}</p>
+        <p>Date created: {{ item.created_at }}</p>
+        <br>
+        <a href="/item/like/{{item.id}}" style="padding: 3px; border: .5px solid black; border-radius: 3px; color: black; background-color: lightgray;">Add To Wishlist</a>
+        <br>
+        <p>Users with item in Wishlist:</p>
+        {% for user in item.favoritedby.all %}
+            <li>{{ user.name }}</li>
+        {% endfor %}
+    </div>
+    
+</body>
+</html>

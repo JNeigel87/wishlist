@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" contect="width=device, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/registration.css' %}">
+    <title>Add Item</title>
+</head>
+<body>
+    <h1>Add Item</h1>
+    {% if messages %}
+    {% for message in messages %}
+    <m>{{message}}</m>
+    {% endfor %}
+
+    {% endif %}
+    <div class="create">
+        <form action="/create" method="post">
+            {% csrf_token %}
+            <p>Name: <input type="text" name="itemname" id=""></p>
+            <input type="hidden" name="addedby">
+            <input type="submit" value="Add Item">
+        </form>
+        
+    </div>
+    <a href="/homepage">Return Home</a>
+</body>
+</html>
